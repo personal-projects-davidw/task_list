@@ -1,0 +1,73 @@
+:root {
+    --off-black--: rgba(40, 36, 40, 1);
+    --pri-color--: rgba(128, 0, 128, 1);
+    --sec-color--: rgba(166, 111, 166, 1);
+    --ter-color--: rgba(137, 129, 137, 0.8);
+}
+
+body {
+    box-sizing: border-box;
+    font-family: 'Noto Sans KR', sans-serif;
+    background-color: whitesmoke;
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+}
+
+.main_card {
+    display: flex;
+    flex-direction: column;
+    width: 60%;
+    margin: 40px auto;
+    min-width: 290px;
+    padding: 0 40px 40px 40px;
+    background-color: white;
+    color: var(--off-black--);
+}
+
+header h1 {
+    width: 100%;
+    font-size: 32px;
+    font-weight: 300;
+}
+
+.new_input label {
+    font-size: 16px;
+    font-weight: 100;
+    color: var(--ter-color--);
+}
+
+#new_task {
+    border: 0;
+    border-bottom: 2px solid var(--sec-color--);
+    width: 100%;
+    background-color: white;
+    font-size: 16px;
+    padding: 8px;
+}
+
+.new_input .btn {
+    background-color: var(--pri-color--);
+    color: whitesmoke;
+    width: fit-content;
+    border: none;
+    padding: 8px 24px;
+    margin-top: 32px;
+    border: 1px solid var(--pri-color--);
+    border-radius: 24px;
+}
+
+.current-list h2 {
+    font-size: 24px;
+    font-weight: 300;
+}
+
+.tasks {
+    padding-left: 0;
+}
+
+.tasks .task {
+    list-style: none;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--ter-color--);
+}
