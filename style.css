@@ -39,9 +39,13 @@ header h1 {
     font-size: 16px;
     font-weight: 100;
     color: var(--ter-color--);
-    position: absolute;
-    top: 157px;
-    left: 145px;
+    position: relative;
+    top: 27px;
+    left: 8px;
+}
+
+.new_input label:hover {
+    cursor: text;
 }
 
 #new_task {
@@ -54,7 +58,7 @@ header h1 {
 }
 
 #new_task:hover {
-    cursor: pointer;
+    cursor: text;
 }
 
 .new_input .btn {
@@ -84,19 +88,44 @@ header h1 {
 
 .current-list h2 {
     font-size: 24px;
-    font-weight: 300;
+    font-weight: 600;
 }
 
 .tasks {
     padding-left: 0;
-    display: grid;
-    grid-template-columns: repeat(12, auto);
-    grid-template-rows: auto;
 }
 
 .tasks .task {
+    display: grid;
+    grid-template-columns: repeat(50, auto);
+    grid-template-rows: 1;
     list-style: none;
-    padding: 16px 0;
+    padding-top: 16px;
     border-bottom: 1px solid var(--ter-color--);
-    grid-column: 2/11;
+}
+
+.tick {
+    grid-column: 1/3;
+    align-self: center;
+    width: 16px;
+}
+
+.tick:hover {
+    cursor: pointer;
+}
+
+.task p {
+    grid-column: 3/45;
+}
+
+.delete {
+    grid-column: 45/51;
+    align-self: center;
+    width: 16px;
+    color: red;
+    justify-self: right;
+}
+
+.delete:hover {
+    cursor: pointer;
 }
