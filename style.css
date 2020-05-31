@@ -35,7 +35,7 @@ header h1 {
 **     New Input Section     **
 *******************************/
 
-.new_input label {
+#new_input_form label {
     font-size: 16px;
     font-weight: 100;
     color: var(--ter-color--);
@@ -46,7 +46,7 @@ header h1 {
 
 @keyframes shift_up {
     0% {top: 27px; left: 8px;}
-    100% {top: 0; left: 0;}
+    100% {top: -8px; left: 0;}
 }
 
 @keyframes shift_down {
@@ -54,7 +54,7 @@ header h1 {
     100% {top: 27px; left: 8px;}
 }
 
-.new_input label:hover {
+#new_input_form label:hover {
     cursor: text;
 }
 
@@ -75,7 +75,7 @@ header h1 {
     outline: none;
 }
 
-.new_input .btn {
+#new_input_form .btn {
     background-color: var(--pri-color--);
     color: whitesmoke;
     width: fit-content;
@@ -86,13 +86,13 @@ header h1 {
     border-radius: 24px;
 }
 
-.new_input .btn:hover {
+#new_input_form .btn:hover {
     background-color: white;
     color: var(--pri-color--);
     cursor: pointer;
 }
 
-.new_input .btn:focus {
+#new_input_form .btn:focus {
     outline: none;
 }
 
