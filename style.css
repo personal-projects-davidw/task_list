@@ -114,6 +114,10 @@ header h1 {
     cursor: pointer;
 }
 
+.fa-check-circle {
+    color: green;
+}
+
 .task p {
     grid-column: 3/45;
 }
