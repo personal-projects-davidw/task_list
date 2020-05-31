@@ -12,29 +12,37 @@ const newTaskForm = document.getElementById('new_input_form');
 
 let currentTaskList = document.querySelector('.tasks');
 
-// ********** CHECK BOXES **********
 
-function liEventListeners() {
-    // convert from HTML collection to array
-    tickBoxes = Array.from(document.getElementsByClassName('tick'));
-    console.log(tickBoxes);
-    // Iterate over each element adding click event listener
-    tickBoxes.forEach(element => { 
-        element.addEventListener('click', e => {
-            // function to switch classname and therefore icon from uncheckd => check & vice-versa
-            switch (e.target.className) {
-                case "tick far fa-circle":
-                    e.target.className = "tick fas fa-check-circle";
-                    break;
-                case "tick fas fa-check-circle":
-                    e.target.className = "tick far fa-circle";
-                    break;
-            }
-        })
+/********************************** 
+************ CHECK BOXES **********
+***********************************/
+
+function cboxListeners(element) {
+    element.addEventListener('click', e => {
+        // function to switch classname and therefore icon from uncheckd => check & vice-versa
+        switch (e.target.className) {
+            case "tick far fa-circle":
+                e.target.className = "tick fas fa-check-circle";
+                break;
+            case "tick fas fa-check-circle":
+                e.target.className = "tick far fa-circle";
+                break;
+        }
     });
 }
-    
-// ********** NEW TASK LABEL MOVE & SYNC **********
+
+// convert existing from HTML collection to array
+tickBoxes = Array.from(document.getElementsByClassName('tick'));
+
+// Iterate over each element adding click event listener
+tickBoxes.forEach(element => { 
+    cboxListeners(element);
+});
+
+
+/**************************************************
+************* NEW TASK LABEL MOVE & SYNC **********
+**************************************************/
 
 function moveLabelUp() {
     taskLabel.style.animationDuration = '0.1s';
@@ -48,16 +56,17 @@ function moveLabelUp() {
     }, 100); 
 }
 
-// NEEDS AN IF STATEMENT - BREAKS IF HAS TEXT IN BOX
 function moveLabelDown() { 
-    taskLabel.style.animationDuration = '0.1s';
-    taskLabel.style.animationTimingFunction = 'linear';
-    taskLabel.style.animationFillMode = 'forwards';
-    taskLabel.style.animationName = 'shift_down';
-    setTimeout(function() {
-        newTaskInput.style.outline = 'none';
-        newTaskInput.style.borderBottom = '2px solid var(--sec-color--)';
-    }, 100); 
+    if (newTaskInput.value === "") {
+        taskLabel.style.animationDuration = '0.1s';
+        taskLabel.style.animationTimingFunction = 'linear';
+        taskLabel.style.animationFillMode = 'forwards';
+        taskLabel.style.animationName = 'shift_down';
+        setTimeout(function() {
+            newTaskInput.style.outline = 'none';
+            newTaskInput.style.borderBottom = '2px solid var(--sec-color--)';
+        }, 100); 
+    }
 }
 
 taskLabel.addEventListener('click', moveLabelUp);
@@ -69,7 +78,10 @@ newTaskInput.addEventListener('blur', e => {
     moveLabelDown();
 });
 
-// ********** ADD TASK **********
+
+/******************************** 
+************* ADD TASK **********
+********************************/
 
 newTaskForm.addEventListener('submit', e => {
 
@@ -100,9 +112,9 @@ newTaskForm.addEventListener('submit', e => {
 
     // add new li to the current task list
     currentTaskList.appendChild(li);
+    console.log(typeof li);
 
-    // clear new task input field & reset event listners
+    // clear new task input field & add event listner
     newTaskInput.value = "";
-    liEventListeners();
-    
+    cboxListeners(li);
 });
