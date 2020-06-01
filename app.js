@@ -19,6 +19,7 @@ let currentTaskList = document.querySelector('.tasks');
 
 function cboxListeners(element) {
     element.addEventListener('click', e => {
+        console.log('clicked');
         // function to switch classname and therefore icon from uncheckd => check & vice-versa
         switch (e.target.className) {
             case "tick far fa-circle":
@@ -27,15 +28,21 @@ function cboxListeners(element) {
             case "tick fas fa-check-circle":
                 e.target.className = "tick far fa-circle";
                 break;
-        }
+            case "delete fas fa-minus-circle":
+                console.log(e.target.parentNode);
+                e.target.parentNode.style.animationPlayState = 'running';
+        };
     });
-}
+};
 
-// convert existing from HTML collection to array
-tickBoxes = Array.from(document.getElementsByClassName('tick'));
 
-// Iterate over each element adding click event listener
-tickBoxes.forEach(element => { 
+// convert existing tasks from HTML collection to array
+//tasks = Array.from(currentTaskList);
+console.log(typeof currentTaskList);
+
+// Iterate over each object element adding click event listener
+Object.keys(currentTaskList).forEach((element) => {
+    console.log(element);
     cboxListeners(element);
 });
 
@@ -54,7 +61,8 @@ function moveLabelUp() {
         newTaskInput.style.borderBottom = 'none';
         newTaskInput.focus();
     }, 100); 
-}
+};
+
 
 function moveLabelDown() { 
     if (newTaskInput.value === "") {
@@ -66,8 +74,9 @@ function moveLabelDown() {
             newTaskInput.style.outline = 'none';
             newTaskInput.style.borderBottom = '2px solid var(--sec-color--)';
         }, 100); 
-    }
-}
+    };
+};
+
 
 taskLabel.addEventListener('click', moveLabelUp);
 newTaskInput.addEventListener('click', e => {
@@ -89,32 +98,40 @@ newTaskForm.addEventListener('submit', e => {
     
     if (newTaskInput.value === "") {
         alert("You need to enter a task.");
-    } 
+    } else {
+        // create new li to insert into HTML (Tasks) list
+        const li = document.createElement('li');
+        li.className = 'task';
 
-    // create new li to insert into HTML (Tasks) list
-    const li = document.createElement('li');
-    li.className = 'task';
+        // create & append unchecked tick icon as child
+        const checkIcon = document.createElement('i');
+        checkIcon.className = 'tick far fa-circle';
+        li.appendChild(checkIcon);
 
-    // create & append unchecked tick icon as child
-    const checkIcon = document.createElement('i');
-    checkIcon.className = 'tick far fa-circle';
-    li.appendChild(checkIcon);
+        // create & append <p> tag with user input from newTaskInput as child
+        const para = document.createElement('p');
+        para.innerHTML = newTaskInput.value;
+        li.appendChild(para);
 
-    // create & append <p> tag with user input from newTaskInput as child
-    const para = document.createElement('p');
-    para.innerHTML = newTaskInput.value;
-    li.appendChild(para);
+        // create & append delete icon as child
+        const delIcon = document.createElement('i');
+        delIcon.className = 'delete fas fa-minus-circle';
+        li.appendChild(delIcon);
 
-    // create & append delete icon as child
-    const delIcon = document.createElement('i');
-    delIcon.className = 'delete fas fa-minus-circle';
-    li.appendChild(delIcon);
+        // add new li to the current task list
+        currentTaskList.appendChild(li);
 
-    // add new li to the current task list
-    currentTaskList.appendChild(li);
-    console.log(typeof li);
-
-    // clear new task input field & add event listner
-    newTaskInput.value = "";
-    cboxListeners(li);
+        // clear new task input field & add event listner
+        newTaskInput.value = "";
+        cboxListeners(li);
+        
+        //NEED TO SELECT DELETE ICON
+        console.log()
+    };
 });
+
+
+/*********************************** 
+************* DELETE TASK **********
+***********************************/
+
