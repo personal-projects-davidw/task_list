@@ -80,20 +80,14 @@ header h1 {
 }
 
 #new_input_form .btn {
-    background-color: var(--pri-color--);
+    background-color: var(--sec-color--);
     color: whitesmoke;
     width: fit-content;
     border: none;
     padding: 8px 24px;
     margin: 32px 0;
-    border: 2px solid var(--pri-color--);
+    border: 2px solid var(--sec-color--);
     border-radius: 24px;
-}
-
-#new_input_form .btn:hover {
-    background-color: white;
-    color: var(--pri-color--);
-    cursor: pointer;
 }
 
 #new_input_form .btn:focus {

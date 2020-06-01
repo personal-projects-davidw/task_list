@@ -14,6 +14,9 @@ const newTaskForm = document.getElementById('new_input_form');
 // get main task list <ul>
 let currentTaskList = document.querySelector('.tasks');
 
+// get add task button
+const addBtn = document.querySelector('.btn');
+
 
 /********************************** 
 ************ CHECK BOXES **********
@@ -83,6 +86,47 @@ newTaskInput.addEventListener('blur', e => {
 });
 
 
+/*********************************************************** 
+******** DISABLE ADD TASK BTN IF FORM INPUT BLANK **********
+***********************************************************/
+
+function setButton() {
+    switch (newTaskInput.value.length > 0) {
+        case true:
+            addBtn.disabled = false;
+            addBtn.style.backgroundColor = 'var(--pri-color--)';
+            addBtn.style.borderColor = 'var(--pri-color--)';
+            addBtn.style.color = 'whitesmoke';
+            break;
+        
+        case false:
+            addBtn.disabled = true;
+            addBtn.style.backgroundColor = 'var(--sec-color--)';
+            addBtn.style.borderColor = 'var(--sec-color--)';
+            addBtn.style.color = 'whitesmoke';
+            break;
+    };
+};
+
+
+addBtn.onmouseenter = () => {
+    addBtn.style.cursor = 'pointer';
+    if (newTaskInput.value.length > 0) {
+        addBtn.style.backgroundColor = 'white';
+        addBtn.style.color = 'var(--pri-color--)';
+    };
+};
+
+addBtn.onmouseleave = () => {
+    addBtn.style.cursor = 'default';
+    setButton();
+};
+
+newTaskInput.onkeyup = () => {
+    setButton();
+};
+
+
 /******************************** 
 ************* ADD TASK **********
 ********************************/
@@ -91,33 +135,30 @@ newTaskForm.addEventListener('submit', e => {
 
     e.preventDefault();
     
-    if (newTaskInput.value === "") {
-        alert("You need to enter a task.");
-    } else {
-        // create new li to insert into HTML (Tasks) list
-        const li = document.createElement('li');
-        li.className = 'task';
+    // create new li to insert into HTML (Tasks) list
+    const li = document.createElement('li');
+    li.className = 'task';
 
-        // create & append unchecked tick icon as child
-        const checkIcon = document.createElement('i');
-        checkIcon.className = 'tick far fa-circle';
-        li.appendChild(checkIcon);
+    // create & append unchecked tick icon as child
+    const checkIcon = document.createElement('i');
+    checkIcon.className = 'tick far fa-circle';
+    li.appendChild(checkIcon);
 
-        // create & append <p> tag with user input from newTaskInput as child
-        const para = document.createElement('p');
-        para.innerHTML = newTaskInput.value;
-        li.appendChild(para);
+    // create & append <p> tag with user input from newTaskInput as child
+    const para = document.createElement('p');
+    para.innerHTML = newTaskInput.value;
+    li.appendChild(para);
 
-        // create & append delete icon as child
-        const delIcon = document.createElement('i');
-        delIcon.className = 'delete fas fa-minus-circle';
-        li.appendChild(delIcon);
+    // create & append delete icon as child
+    const delIcon = document.createElement('i');
+    delIcon.className = 'delete fas fa-minus-circle';
+    li.appendChild(delIcon);
 
-        // add new li to the current task list
-        currentTaskList.appendChild(li);
+    // add new li to the current task list
+    currentTaskList.appendChild(li);
 
-        // clear new task input field & add event listner
-        newTaskInput.value = "";
-        cboxListeners(li);
-    };
+    // clear new task input field & add event listner
+    newTaskInput.value = "";
+    setButton();
+    cboxListeners(li);
 });
