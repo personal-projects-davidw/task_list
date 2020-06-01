@@ -1,5 +1,6 @@
-
-// ********** SET UI VARIABLES **********
+/**************************************** 
+************* SET UI VARIABLES **********
+****************************************/
 
 // get input field label for new task input
 const taskLabel = document.querySelector('#new_input_form label');
@@ -7,9 +8,10 @@ const taskLabel = document.querySelector('#new_input_form label');
 // get new task input
 const newTaskInput = document.getElementById('new_task');
 
-// get new task input
+// get new task complete <form>
 const newTaskForm = document.getElementById('new_input_form');
 
+// get main task list <ul>
 let currentTaskList = document.querySelector('.tasks');
 
 
@@ -17,33 +19,34 @@ let currentTaskList = document.querySelector('.tasks');
 ************ CHECK BOXES **********
 ***********************************/
 
+// function to set listeners on task list entries & handle checking & deleting
 function cboxListeners(element) {
     element.addEventListener('click', e => {
-        console.log('clicked');
-        // function to switch classname and therefore icon from uncheckd => check & vice-versa
         switch (e.target.className) {
+
+            // unticked circle selected so tick
             case "tick far fa-circle":
                 e.target.className = "tick fas fa-check-circle";
                 break;
+
+            // ticked circle selected so untick
             case "tick fas fa-check-circle":
                 e.target.className = "tick far fa-circle";
                 break;
+
+            // delete selected so trigger hide animation then delete from dom
             case "delete fas fa-minus-circle":
-                console.log(e.target.parentNode);
                 e.target.parentNode.style.animationPlayState = 'running';
+                setTimeout(function() {
+                    e.target.parentNode.remove();
+                }, 500);       
         };
     });
 };
 
-
-// convert existing tasks from HTML collection to array
-//tasks = Array.from(currentTaskList);
-console.log(typeof currentTaskList);
-
-// Iterate over each object element adding click event listener
-Object.keys(currentTaskList).forEach((element) => {
-    console.log(element);
-    cboxListeners(element);
+// set listeners on all tasks in task list at initial page load
+document.querySelectorAll('.task').forEach(task => {
+    task.addEventListener('click', cboxListeners(task));
 });
 
 
@@ -52,9 +55,6 @@ Object.keys(currentTaskList).forEach((element) => {
 **************************************************/
 
 function moveLabelUp() {
-    taskLabel.style.animationDuration = '0.1s';
-    taskLabel.style.animationTimingFunction = 'linear';
-    taskLabel.style.animationFillMode = 'forwards';
     taskLabel.style.animationName = 'shift_up';
     setTimeout(function() {
         newTaskInput.style.outline = '2px solid var(--sec-color--)';
@@ -66,14 +66,9 @@ function moveLabelUp() {
 
 function moveLabelDown() { 
     if (newTaskInput.value === "") {
-        taskLabel.style.animationDuration = '0.1s';
-        taskLabel.style.animationTimingFunction = 'linear';
-        taskLabel.style.animationFillMode = 'forwards';
+        newTaskInput.style.outline = 'none';
+        newTaskInput.style.borderBottom = '2px solid var(--sec-color--)';
         taskLabel.style.animationName = 'shift_down';
-        setTimeout(function() {
-            newTaskInput.style.outline = 'none';
-            newTaskInput.style.borderBottom = '2px solid var(--sec-color--)';
-        }, 100); 
     };
 };
 
@@ -124,14 +119,5 @@ newTaskForm.addEventListener('submit', e => {
         // clear new task input field & add event listner
         newTaskInput.value = "";
         cboxListeners(li);
-        
-        //NEED TO SELECT DELETE ICON
-        console.log()
     };
 });
-
-
-/*********************************** 
-************* DELETE TASK **********
-***********************************/
-
